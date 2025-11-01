@@ -1,0 +1,27 @@
+device: "cuda"               # "cuda" or "cpu"
+frame_skip: 3                # detect every N frames
+debug: false                 # overlay boxes if true
+
+face_detector:
+  type: "yolov8_standard"    # options: yolov8_standard, yolov8, opencv
+  model_path: "weights/yolov8n-face.pt"
+  conf_threshold: 0.35
+
+text_detector:
+  ocr_languages: ["en"]
+  ocr_conf_threshold: 0.45
+  preprocess:
+    use_clahe: true
+    sharpen: true
+    denoise: true
+
+blur:
+  method: "gaussian"         # gaussian | mosaic
+  gaussian_min_kernel: 15
+  gaussian_max_kernel: 121
+  mosaic_block_size_min: 6
+
+text_blur:
+  padding_x_ratio: 0.10
+  padding_y_ratio: 0.15
+  sentiment_threshold: -0.3

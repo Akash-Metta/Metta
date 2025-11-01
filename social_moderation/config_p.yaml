@@ -1,0 +1,54 @@
+# Smart Content Moderation Configuration
+device: "cuda"  # "cuda" or "cpu"
+frame_skip: 3
+debug: false
+
+# Face Detection
+face_detector:
+  type: "yolov8_standard"
+  model_path: "weights/yolov8n-face.pt"
+  conf_threshold: 0.35
+  bbox_adjustment:
+    padding_ratio: 0.08
+    neck_extension: 0.35
+    forehead_padding: 0.12
+  motion_smoothing:
+    enabled: true
+    iou_threshold: 0.5
+    smoothing_window: 5
+    max_missing_frames: 30
+
+# Text Detection
+text_detector:
+  ocr_languages: ["en"]
+  ocr_conf_threshold: 0.45
+  preprocessing:
+    use_clahe: true
+    sharpen: true
+    denoise: true
+
+# NSFW/Blood/Violence Detection
+nsfw_detection:
+  nsfw_threshold: 0.7          # NSFW content threshold
+  violence_threshold: 0.6      # Violence content threshold
+  blood_threshold: 0.5         # Blood/gore threshold
+  blood_percentage_threshold: 8.0  # Red pixel percentage for blood detection
+
+# Blur Settings
+blur:
+  face:
+    method: "gaussian"
+    adaptive_intensity: true
+    gaussian_min_kernel: 51
+    gaussian_max_kernel: 121
+    mosaic_block_size: 8
+  
+  text:
+    method: "gaussian"
+    gaussian_min_kernel: 51
+    gaussian_max_kernel: 121
+    mosaic_block_size: 8
+
+# System Settings
+system:
+  benchmark_logging: true

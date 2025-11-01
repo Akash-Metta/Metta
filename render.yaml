@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: social-content-moderation
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd social_moderation && python app.py
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10"
+      - key: PORT
+        value: "7860"
